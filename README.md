@@ -4,6 +4,7 @@
 To run application:
 
 - open cmd
+- navigate to project folder (on cmd)
 - type 'set flask_app = application.py'
 - type 'py -m venv'
 - type '.\Scripts\activate'
