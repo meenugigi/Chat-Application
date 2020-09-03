@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Let'sChat
+{% endblock %}
+<link rel="stylesheet" href="{{url_for('static', filename ='css/style.css') }}">
+
+{% block content %}
+
+{{ displaymessage }}
+
+<style>
+
+#chat {
+	width: 900px;
+	height: 375px;
+	background-image: url(/static/wall.jpg);
+	background-size: 880px 440px;
+	border-radius: 7px;
+	margin-top: 1px;
+}
+.button, #send-button{
+	background-color: #808080;
+	font-size: 20px;
+	color: black;
+
+}
+
+</style>
+
+
+
+
+
+
+<div id="row">
+
+  <div id="column">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script type="text/javascript">
+      var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+document.addEventListener('DOMContentLoaded', () => {
+ document.querySelector('#send-button').disabled = true;
+
+                // Enable button only if there is text in the input field
+                document.querySelector('#comment').onkeyup = () => {
+                    if (document.querySelector('#comment').value.length > 0)
+                        document.querySelector('#send-button').disabled = false;
+                    else
+                        document.querySelector('#send-button').disabled = true;
+                };
+})    
+  socket.on('connect', () => {
+        socket.emit('enter');
+ document.querySelector('#comment').addEventListener("keydown", event => {
+            if (event.key == "Enter") {
+                document.getElementById("send-button").click();
+
+            }
+        });        
+        document.querySelector('#send-button').addEventListener("click", () => {
+            let timestamp = new Date;
+            timestamp = timestamp.toLocaleTimeString();
+            let msg = document.getElementById("comment").value;
+            socket.emit('send message', msg, timestamp);
+            document.getElementById("comment").value = '';
+        });      
+ socket.on('announce message', data => {
+      let row = '[' + `${data.timestamp}` + '] ' + `${data.user}` + ': ' + `${data.msg}` 
+        document.querySelector('#chat').value += row + '\n'
+        return false;
+    })
+ return false;
+ });
+</script>
+ 
+
+
+
+
+
+  
+
+
+<div id="public">
+
+<b><h4>  Create Private Channels</h4></b>
+      <form method="POST" action="/chatroom">
+	
+ <button class="button" type="submit" value="submit">Private Channels</button>
+</form>
+</div>
+
+
+<div id="public">
+
+
+<font color="#990000" size="4px"><b>{{ showmessages }}</b></font>
+<form method="POST" action="/createchannel">
+   <b> <h4><label>Create group Channels</label></h4></b>
+    <input type="text" name="channelname" placeholder="Channelname" required="Channel name required">
+    <button class="button" type="submit" name="submit">Create</button> 
+</form>
+
+
+
+List of available channels:
+
+<div id = "nav">
+{%- for channelname in channels -%}
+<i><a class="dropdown-item" href="{{ channelname }}">{{ channelname }}</a></i>
+{%- endfor -%}
+</div>
+ 
+        <div id="body">
+        </div>
+</div>
+
+</div>
+
+
+<div id="secondcolumn">
+<div id="groupname">
+{%- for channelname in channellist -%}
+{{ channelname }}
+{%- endfor -%}
+</div>
+<br>
+
+ 
+<div class="container-channel custom-window">
+    <div id="chat-box" class="list-group">
+      
+        <div id="chat" contenteditable='false'>
+            {%- if messages -%} 
+                {%- for message in messages -%}
+           <div id="msg">       [{{ message[0] }}]  {{ message[1] }}: {{ message [2] }} {{'\n'}}  </div>
+                {%- endfor -%}
+                
+            {%- endif -%}
+
+        </div>
+    </div>
+    <form action="" method="POST">
+   <br>   <input type="text" id="comment" name= "comment" class="message" placeholder="Start typing...."/>
+ <button id = "send-button" type="submit">Enter</button>
+    </form>
+
+</div>
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,121 @@
+#login {
+	text-align: center;
+	margin-top: 9%;
+	background-color: black;
+	 margin-left: 39%;
+  width: 370px;
+  height: 150px;
+  padding: 30px;
+  border-radius: 20px;
+ }  
+
+#texts {
+ color: #99ccff;
+ font-style: Calibri;
+ font-size: 20px;
+}
+
+
+ 
+#login_selectchannel {
+	text-align: center;
+	margin-top: 4%;
+	background-color: black;
+	 margin-left: 34%;
+  width: 500px;
+  height: 150px;
+  padding: 30px;
+  border-radius: 20px;
+ }
+
+  #texts_channel {
+ color: #99ccff;
+ font-style: Calibri;
+ font-size: 18px;
+}
+
+
+
+
+#column {
+  float: left;
+  width: 26%;
+  padding: 10px;
+  height: 88vh; 
+  background-color:  #333333;
+  color: white;
+}
+
+#secondcolumn {
+	float: left;
+  width: 159.5vh;
+  padding: 10px;
+  height: 90vh; 
+  background-color: #d6d6c2;
+}
+
+#row:after {
+  content: "";
+  display: table;
+  clear: both;
+  background-color: #e6f2ff;
+}
+
+
+
+#public {
+	margin-top: 3%;
+	background-color: #ccccb3;
+	padding: 16px;
+	text-align: left;
+	font-size: 18px;
+	color:  #00264d;
+	border-radius: 5px;
+}
+
+.button, #send-button{
+	background-color: #808080;
+	font-size: 20px;
+	color: black;
+
+}
+
+
+#nav {
+	font-size: 18px;
+	color: #e6b3b3;
+}
+
+#groupname {
+	font-size: 20px;
+	font-weight: bolder;
+	text-align: center;
+	font-family: "Arial Black", Gadget, sans-serif;
+	color: #001a33;
+	margin-top: 1px;
+}
+
+#comment {
+	width: 810px;
+	border-radius: 7px;
+	height: 40px;
+	background-color: #999999;
+}
+
+#msg {
+	background-color: #ccccb3;
+	width: 600px;
+	padding: 5px;
+	border-radius: 4px;
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+
+
+#comment, #text {
+	width: 810px;
+	border-radius: 7px;
+	height: 40px;
+	background-color: #999999;
+}

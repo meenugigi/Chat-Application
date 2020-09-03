@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Let'sChat
+{% endblock %}  
+{% block content %}
+ <link rel="stylesheet" href="{{url_for('static', filename ='css/style.css') }}">
+<style>
+body {
+
+	background-image: url(/static/image.jpg);
+	background-size: 1500px 700px;
+}
+
+
+
+</style>
+
+
+
+{{ message }}
+{{ messages }}
+
+
+
+<div id="login_selectchannel">
+<form method="POST" action="/registered">
+	 <label id="texts_channel"><i><b>Public Channels:</b> All users using this application will have access to these channels.</i></label><br>
+  <button class="button" type="submit" value="submit">Public Channels</button>
+</form>
+</div>
+
+<div id="login_selectchannel">
+<form method="POST" action="/chatroom">
+	<label id="texts_channel"><i><b>Private Channels:</b> Only users having the room key will have access to these channels.</i></label><br>
+ <button class="button" type="submit" value="submit">Private Channels</button>
+</form>
+</div>
+{% endblock %}

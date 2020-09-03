@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Let'sChat
+{% endblock %}
+<link rel="stylesheet" href="{{url_for('static', filename ='css/style.css') }}">
+
+{% block content %}
+
+{{ displaymessage }}
+
+<style>
+
+#chat {
+	width: 900px;
+	height: 395px;
+	
+	border-radius: 7px;
+	margin-top: 1px;
+}
+.button, #send-button{
+	background-color: #808080;
+	font-size: 20px;
+	color: black;
+
+}
+
+
+
+</style>
+        <title>Let'sChat</title>
+       
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            var socket;
+            $(document).ready(function(){
+                socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+                socket.on('connect', function() {
+                    socket.emit('joined', {});
+                });
+                socket.on('status', function(data) {
+                    $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                });
+                socket.on('message', function(data) {
+                    $('#chat').val($('#chat').val() + data.msg + '\n');
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                });
+                $('#text').keypress(function(e) {
+                    var code = e.keyCode || e.which;
+                    if (code == 13) {
+                        text = $('#text').val();
+                        $('#text').val('');
+                        socket.emit('text', {msg: text});
+                    }
+                });
+            });
+            function leave_room() {
+                socket.emit('left', {}, function() {
+                    socket.disconnect();
+
+                    // go back to the login page
+                    window.location.href = "{{ url_for('memberchannel') }}";
+                });
+            }
+        </script>
+    </head>
+    <body>
+{{ display }}
+
+
+
+<div id="row">
+
+  <div id="column">
+  <h3>Create private chat rooms</h3>
+        <form method="POST" action="/memberchannel">
+            {{ form.hidden_tag() }}
+         
+            {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br>
+            {{ form.submit() }}
+        </form>
+
+<br>
+
+<form action="/registered" method="POST">
+  	<button class ="button" type="submit" name="Leave this room">Return to public channels </button>     
+  </form>
+
+ </div>
+  
+
+  <div id="secondcolumn">
+{%- for room in currentroom -%}
+{{ room }}
+{%- endfor -%}
+
+
+  <div id="groupname">      Room key: {{ room }}</div>
+        <textarea id="chat" cols="80" rows="20"></textarea>
+        <input id="text" size="80" placeholder="Enter your message here">
+  <button id = "send-button" type="submit">Enter</button>
+
+</div>
+
+  {% endblock %}

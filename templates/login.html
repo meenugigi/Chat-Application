@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Let'sChat
+{% endblock %} 
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename ='css/style.css') }}">
+<style>
+body {
+
+	background-image: url(/static/image.jpg);
+	background-size: 1500px 700px;
+}
+
+
+
+</style>
+
+{{ message }}
+{{ messages }}
+
+<div id="login">
+<form method="POST" action="/selectchannel">
+    <label id="texts">What's your displayname?</label><br>
+    <input type="text" id = "displayname" name="displayname" placeholder="Enter displayname" required="Displayname cannot be empty"> &nbsp&nbsp&nbsp
+<button class="button" type="submit" value="submit"> Login</button>
+</form>
+</div>
+ 
+{% endblock %}
