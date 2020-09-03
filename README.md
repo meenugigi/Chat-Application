@@ -1,3 +1,15 @@
+- Click here for live demo: http://meenuchatapp.herokuapp.com
+- Click here for demo video: https://youtu.be/BPXFfbc0w84
+
+To run application:
+
+- open cmd
+- type 'set flask_app = application.py'
+- type 'py -m venv'
+- type '.\Scripts\activate'
+- type 'flask run'
+
+
 Note: if on downloading this folder, you receive an error, then on the application.py file, edit line 91 (line 91 as on Sublime text) to " return render_template("createchannel.html", channels = existingchannels)"
 This will prevent the error on page load. Once the page has loaded successfully, edit it back to what it was previously.
 
@@ -31,4 +43,4 @@ Explanation of the files contained:
 
 - app/main/routes.py ---> contains python code for navigating the users to the required pages as per the button clicks (for private chatrooms)
 
-Project Demo Link : https://youtu.be/BPXFfbc0w84
+
